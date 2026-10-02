@@ -239,6 +239,13 @@ html[lang="zh-Hans"] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans
           <span class="phone" id="kakaoId">cuitiemei1220</span>
           <div class="actions"><button class="btn kk-btn" id="copyKakao" type="button">카톡 아이디 복사</button></div>
         </div>
+        <div class="ct wa" id="ctWa">
+          <span class="label">WhatsApp 문의</span>
+          <div class="wa-row">
+            <img src="img/wa-qr.png" alt="WhatsApp QR" width="84" height="84" loading="lazy">
+            <div class="actions"><a class="btn wa-btn" href="https://wa.me/qr/O3SK73NOCYAUK1" target="_blank" rel="noopener">WhatsApp으로 문의</a></div>
+          </div>
+        </div>
         <div class="ct wa" id="ctWc">
         <span class="label">위챗 문의 · 微信</span>
         <div class="wa-row">
@@ -1434,7 +1441,7 @@ function applyStatic(){
   const qi=document.getElementById("q"); if(qi.dataset.ko==null) qi.dataset.ko=qi.placeholder; qi.placeholder=tr(qi.dataset.ko);
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang===L)));
 }
-function orderContacts(){ const ids = L==="ko" ? ["ctAddr","ctKk","ctWc"] : ["ctAddr","ctWc","ctKk"]; const els=ids.map(i=>document.getElementById(i)); if(els.some(e=>!e)) return; const p=els[0].parentNode; els.forEach((e,i)=>{ p.appendChild(e); e.classList.toggle("first", i===0); e.classList.toggle("wa", i>0); }); }
+function orderContacts(){ const ids = L==="ko" ? ["ctAddr","ctKk","ctWc","ctWa"] : L==="zh" ? ["ctAddr","ctWc","ctKk","ctWa"] : ["ctAddr","ctWa","ctWc","ctKk"]; const els=ids.map(i=>document.getElementById(i)); if(els.some(e=>!e)) return; const p=els[0].parentNode; els.forEach((e,i)=>{ p.appendChild(e); e.classList.toggle("first", i===0); e.classList.toggle("wa", i>0); }); }
 function setLang(l){ L=l; try{ localStorage.setItem("wm_lang", l); }catch(e){} applyStatic(); orderContacts(); renderCountries(); renderChips(); render(); updateStatus(); }
 document.addEventListener("click", e=>{ const b=e.target.closest(".lang button"); if(b) setLang(b.dataset.lang); });
 let G = [];
