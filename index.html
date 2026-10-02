@@ -85,7 +85,7 @@ header.store{padding-block:28px 20px;display:grid;gap:14px}
 .ct{display:grid;gap:4px;align-content:start}
 .ct.wa{margin-top:8px;padding-top:10px;border-top:1px dashed var(--line)}
 .ct.first{margin-top:0;padding-top:0;border-top:0}
-#ctWc:not(.first){margin-top:8px;padding-top:10px;border-top:1px dashed var(--line)}
+
 .wa-row{display:flex;align-items:center;gap:10px}
 .wa-row img{width:84px;height:84px;border-radius:8px;background:#fff;padding:3px;border:1px solid var(--line)}
 .btn.kk-btn{background:#FEE500;border-color:#FEE500;color:#191919;font-weight:700}
@@ -233,6 +233,25 @@ html[lang="zh-Hans"] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans
             <a class="btn primary" href="https://naver.me/FAri2C4b" target="_blank" rel="noopener">네이버 지도</a>
             <button class="btn" id="copyAddr" type="button">주소 복사</button>
           </div>
+        </div>
+        <div class="ct wa" id="ctKk">
+          <span class="label">카카오톡 문의</span>
+          <span class="phone" id="kakaoId">cuitiemei1220</span>
+          <div class="actions"><button class="btn kk-btn" id="copyKakao" type="button">카톡 아이디 복사</button></div>
+        </div>
+        <div class="ct wa" id="ctWc">
+        <span class="label">위챗 문의 · 微信</span>
+        <div class="wa-row">
+        <img src="img/wechat-qr.png" alt="WeChat QR" width="84" height="84" loading="lazy">
+        <div class="ct">
+        <span class="phone" id="phone">cjfao1220</span>
+        <div class="actions">
+          <button class="btn primary" id="copyPhone" type="button">아이디 복사</button>
+          <a class="btn wc-btn" id="openWc" href="weixin://">아이디 복사하고 위챗 열기</a>
+        </div>
+        </div>
+        </div>
+        <span class="wc-tip">위챗 안에서 보고 있다면 QR을 길게 눌러 바로 친구 추가할 수 있어요.</span>
         </div>
       </div>
     </div>
@@ -1411,11 +1430,11 @@ const tr = s => (L!=="ko" && s!=null && DICT[L] && DICT[L][s]!=null) ? DICT[L][s
 const nm = it => L==="ko" ? it.name : L==="zh" ? (it.zh||it.name) : (L==="vi" && it.vi) ? it.vi : (L==="th" && it.th) ? it.th : (EN[it.name]||it.name);
 function applyStatic(){
   document.documentElement.lang = ({zh:"zh-Hans"})[L] || L;
-  document.querySelectorAll(".notice p,.brand .sub,.tagline,.info .label,.hours dt,footer span,#copyAddr,.actions a.btn").forEach(el=>{ if(el.dataset.ko==null) el.dataset.ko=el.textContent; el.textContent=tr(el.dataset.ko); });
+  document.querySelectorAll(".notice p,.brand .sub,.tagline,.info .label,.hours dt,footer span,#copyAddr,#copyPhone,#copyKakao,#openWc,.wc-tip,.actions a.btn").forEach(el=>{ if(el.dataset.ko==null) el.dataset.ko=el.textContent; el.textContent=tr(el.dataset.ko); });
   const qi=document.getElementById("q"); if(qi.dataset.ko==null) qi.dataset.ko=qi.placeholder; qi.placeholder=tr(qi.dataset.ko);
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang===L)));
 }
-function orderContacts(){ return;  const ids = L==="ko" ? ["ctKk","ctWc","ctWa"] : L==="zh" ? ["ctWc","ctKk","ctWa"] : ["ctWa","ctWc","ctKk"]; const els=ids.map(i=>document.getElementById(i)); if(els.some(e=>!e)) return; const p=els[0].parentNode; els.forEach((e,i)=>{ p.appendChild(e); e.classList.toggle("first", i===0); }); }
+function orderContacts(){ const ids = L==="ko" ? ["ctAddr","ctKk","ctWc"] : ["ctAddr","ctWc","ctKk"]; const els=ids.map(i=>document.getElementById(i)); if(els.some(e=>!e)) return; const p=els[0].parentNode; els.forEach((e,i)=>{ p.appendChild(e); e.classList.toggle("first", i===0); e.classList.toggle("wa", i>0); }); }
 function setLang(l){ L=l; try{ localStorage.setItem("wm_lang", l); }catch(e){} applyStatic(); orderContacts(); renderCountries(); renderChips(); render(); updateStatus(); }
 document.addEventListener("click", e=>{ const b=e.target.closest(".lang button"); if(b) setLang(b.dataset.lang); });
 let G = [];
@@ -1530,6 +1549,14 @@ function toast(msg){
   document.body.appendChild(t); setTimeout(()=>t.remove(),1800);
 }
 
+function copyTxt(v){ let ok=false; try{ const t=document.createElement("textarea"); t.value=v; t.setAttribute("readonly",""); t.style.cssText="position:fixed;top:0;left:0;opacity:0"; document.body.appendChild(t); t.select(); t.setSelectionRange(0,v.length); ok=document.execCommand("copy"); t.remove(); }catch(e){} try{ navigator.clipboard&&navigator.clipboard.writeText(v).catch(()=>{}); }catch(e){} return ok; }
+document.getElementById("copyPhone").addEventListener("click", ()=>{ copyTxt("cjfao1220"); toast(tr("위챗 아이디를 복사했습니다")); });
+document.getElementById("copyKakao").addEventListener("click", ()=>{ copyTxt("cuitiemei1220"); toast(tr("카톡 아이디를 복사했습니다")); });
+(function(){ const a=document.getElementById("openWc"); const ua=navigator.userAgent||"";
+  if(/Android/i.test(ua)) a.href="intent://#Intent;scheme=weixin;package=com.tencent.mm;end";
+  if(/MicroMessenger/i.test(ua)) a.style.display="none";
+  a.addEventListener("click", ()=>{ copyTxt("cjfao1220"); toast(tr("위챗 아이디를 복사했습니다")); setTimeout(()=>{ if(!document.hidden) toast(tr("위챗이 열리지 않으면 위챗 앱을 직접 열고 아이디를 검색해 주세요.")); },2000); });
+})();
 document.getElementById("copyAddr").addEventListener("click", ()=>{ const a="경기 평택시 서정역로 39"; try{ const t=document.createElement("textarea"); t.value=a; t.style.cssText="position:fixed;opacity:0"; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove(); }catch(e){} try{ navigator.clipboard&&navigator.clipboard.writeText(a).catch(()=>{}); }catch(e){} toast(tr("주소를 복사했습니다")); });
 applyStatic(); orderContacts(); renderCountries(); renderChips(); render(); updateStatus(); setInterval(updateStatus,60000);
 </script>
