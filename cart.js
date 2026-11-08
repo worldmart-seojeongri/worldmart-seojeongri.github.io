@@ -42,7 +42,7 @@
     try{localStorage.setItem(KEY,JSON.stringify(rows));}catch(_){if(!storageWarning){toast(t(28));storageWarning=true;}}
     refreshDock();
   }
-  function refreshDock(){dock.innerHTML=`<span>🛒 ${esc(t(0))} <b>${count()}</b></span><small>${esc(t(29))} ›</small>`;}
+  function refreshDock(){dock.innerHTML=`<span>🛒 ${esc(t(0))} <b>${count()}</b></span><small>${esc(t(19))} ›</small>`;}
   function add(id,option){
     const it=products.get(id);if(!it||sold(it))return;
     const old=rows.find(r=>r.id===id&&r.option===option);
@@ -87,7 +87,7 @@
     });
     dialog.querySelector('#cart-wechat')?.addEventListener('click',()=>{const a=document.getElementById('openWc');if(a)a.click();});
   }
-  // Text indices are shared across languages; copy feedback is 19/20.
+  // Native dialogs keep keyboard focus inside and restore it on close.
   dock.onclick=()=>{renderCart();dialog.showModal();};
   const originalLang=setLang;
   setLang=function(l){originalLang(l);refreshDock();};

@@ -1,4 +1,6 @@
 body{padding-bottom:110px}
+header.store,.tools{grid-template-columns:minmax(0,1fr)}
+header.store>*{min-width:0}
 .item{position:relative;padding-bottom:52px!important}
 .cart-add{position:absolute;right:12px;bottom:12px;min-width:38px;height:38px;border:1px solid var(--jade);border-radius:50%;background:var(--jade-soft);color:var(--jade);font-family:inherit;font-weight:700;font-size:26px;line-height:1;cursor:pointer}
 .cart-add:disabled{border-color:var(--line);color:var(--muted);font-size:12px;border-radius:12px;width:auto;padding:0 10px;cursor:default}
