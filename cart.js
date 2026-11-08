@@ -17,6 +17,10 @@
   };
   // Remaining catalog languages use clear English cart controls.
   const t = i => (messages[L] || messages.en)[i];
+  const deliveryNotice='5만 원 이상 주문 시 매장 반경 5km 이내 무료배달합니다.';
+  const deliveryTranslations={zh:'订单满50,000韩元，门店半径5公里以内免费配送。',en:'Free delivery on orders of ₩50,000 or more within a 5 km radius of the store.',vi:'Miễn phí giao hàng cho đơn từ 50.000 won trong bán kính 5 km từ cửa hàng.',th:'ส่งฟรีเมื่อสั่งซื้อ 50,000 วอนขึ้นไป ภายในรัศมี 5 กม. จากร้าน',id:'Gratis antar untuk pesanan minimal ₩50.000 dalam radius 5 km dari toko.',km:'ដឹកជញ្ជូនឥតគិតថ្លៃសម្រាប់ការបញ្ជាទិញចាប់ពី 50,000 វ៉ុនឡើងទៅ ក្នុងរង្វង់ 5 គីឡូម៉ែត្រពីហាង។',my:'ဝမ် ၅၀,၀၀၀ နှင့်အထက် မှာယူပါက ဆိုင်မှ ၅ ကီလိုမီတာ ပတ်လည်အတွင်း အခမဲ့ပို့ဆောင်ပေးပါသည်။'};
+  for(const [lang,text] of Object.entries(deliveryTranslations)) if(DICT[lang]) DICT[lang][deliveryNotice]=text;
+  EN[deliveryNotice]=deliveryTranslations.en;
   const sold = it => /품절|缺货/.test(it.badge || '');
   const options = it => (it.opts && it.opts.length ? it.opts : (it.gallery || []).filter(f=>!f.big).map(f=>f.k)).filter(Boolean);
   let rows = [];
@@ -40,9 +44,29 @@
   let details={name:'',contact:'',pickup:'',note:''};
   function save(){
     try{localStorage.setItem(KEY,JSON.stringify(rows));}catch(_){if(!storageWarning){toast(t(28));storageWarning=true;}}
-    refreshDock();
+    refreshDock();refreshQuantities();
   }
   function refreshDock(){dock.innerHTML=`<span>🛒 ${esc(t(0))} <b>${count()}</b></span><small>${esc(t(19))} ›</small>`;}
+  const quantity=(id,option)=>rows.filter(r=>r.id===id&&(option===undefined||r.option===option)).reduce((sum,r)=>sum+r.qty,0);
+  function refreshQuantities(){
+    document.querySelectorAll('[data-cart-controls]').forEach(el=>{
+      const id=el.dataset.cartControls,n=quantity(id);
+      el.querySelector('output').textContent=n;
+      el.querySelector('output').hidden=!n;
+      el.querySelector('[data-cart-action="minus"]').hidden=!n;
+      el.setAttribute('aria-label',nm(products.get(id))+' · '+n);
+    });
+    picker.querySelectorAll('[data-option-row]').forEach(el=>{
+      const id=picker.dataset.product,option=options(products.get(id))[+el.dataset.optionRow],n=quantity(id,option);
+      el.querySelector('output').textContent=n;
+      el.querySelector('[data-option-minus]').disabled=!n;
+      el.querySelector('[data-option-add]').disabled=n>=99||/품절|缺货/.test(option);
+    });
+  }
+  function decrease(id,option){
+    const i=rows.findIndex(r=>r.id===id&&r.option===option);if(i<0)return;
+    if(--rows[i].qty===0)rows.splice(i,1);save();
+  }
   function add(id,option){
     const it=products.get(id);if(!it||sold(it))return;
     const old=rows.find(r=>r.id===id&&r.option===option);
@@ -52,18 +76,26 @@
   function choose(id){
     const it=products.get(id);if(!it||sold(it))return;
     const opts=options(it);if(!opts.length){add(id,'');return;}
-    picker.innerHTML=`<div class="cart-head"><h2 id="cart-option-title">${esc(t(6))}</h2><button type="button" class="cart-close" aria-label="${esc(t(24))}">×</button></div><div class="cart-body"><strong>${esc(nm(it))}</strong>${opts.map((o,i)=>`<button type="button" class="cart-option" data-option="${i}" ${/품절|缺货/.test(o)?'disabled':''}>${esc(tr(o))} ＋</button>`).join('')}</div>`;
+    picker.dataset.product=id;
+    picker.innerHTML=`<div class="cart-head"><h2 id="cart-option-title">${esc(t(6))}</h2><button type="button" class="cart-close" aria-label="${esc(t(24))}">×</button></div><div class="cart-body"><strong>${esc(nm(it))}</strong>${opts.map((o,i)=>`<div class="cart-option-row" data-option-row="${i}"><span>${esc(tr(o))}</span><div class="cart-step"><button type="button" data-option-minus="${i}" aria-label="${esc(t(9)+' · '+tr(o))}">−</button><output aria-live="polite">${quantity(id,o)}</output><button type="button" data-option-add="${i}" aria-label="${esc(t(1)+' · '+tr(o))}">＋</button></div></div>`).join('')}</div>`;
     picker.querySelector('.cart-close').onclick=()=>picker.close();
-    picker.querySelectorAll('[data-option]').forEach(b=>b.onclick=()=>{add(id,opts[+b.dataset.option]);picker.close();});picker.showModal();
+    picker.querySelectorAll('[data-option-add]').forEach(b=>b.onclick=()=>add(id,opts[+b.dataset.optionAdd]));
+    picker.querySelectorAll('[data-option-minus]').forEach(b=>b.onclick=()=>decrease(id,opts[+b.dataset.optionMinus]));
+    refreshQuantities();picker.showModal();
   }
   // Capture add-button events before the existing photo-gallery handlers.
-  document.getElementById('list').addEventListener('click',e=>{const b=e.target.closest('[data-cart-add]');if(b){e.stopImmediatePropagation();choose(b.dataset.cartAdd);}},true);
-  document.getElementById('list').addEventListener('keydown',e=>{if(e.target.closest('[data-cart-add]'))e.stopImmediatePropagation();},true);
+  document.getElementById('list').addEventListener('click',e=>{
+    const b=e.target.closest('[data-cart-action]');if(!b)return;
+    e.preventDefault();e.stopImmediatePropagation();
+    const id=b.closest('[data-cart-controls]').dataset.cartControls;
+    if(b.dataset.cartAction==='minus'&&!options(products.get(id)).length)decrease(id,'');else choose(id);
+  },true);
+  document.getElementById('list').addEventListener('keydown',e=>{if(e.target.closest('[data-cart-controls]'))e.stopImmediatePropagation();},true);
   const baseCard=card;
   card=function(it){
     const html=baseCard(it);
     return html.replace(/<div class="item[^>]*>/,m=>m.replace(' role="button"',' role="group"'))
-      .replace(/\s*<\/div>\s*$/,`<button type="button" class="cart-add" data-cart-add="${esc(it.cartId)}" aria-label="${esc(t(1)+' · '+nm(it))}" ${sold(it)?'disabled':''}>${sold(it)?esc(t(2)):'＋'}</button></div>`);
+      .replace(/\s*<\/div>\s*$/,sold(it)?`<button type="button" class="cart-add" disabled>${esc(t(2))}</button></div>`:`<div class="cart-inline" data-cart-controls="${esc(it.cartId)}" role="group" aria-label="${esc(nm(it)+' · '+quantity(it.cartId))}"><button type="button" data-cart-action="minus" aria-label="${esc(t(9)+' · '+nm(it))}" ${quantity(it.cartId)?'':'hidden'}>−</button><output aria-live="polite" ${quantity(it.cartId)?'':'hidden'}>${quantity(it.cartId)}</output><button type="button" data-cart-action="plus" aria-label="${esc(t(1)+' · '+nm(it))}">＋</button></div></div>`);
   };
   function orderText(){
     return ['서정리 월드마트 주문 문의 / Order request', ...rows.map((r,i)=>{
@@ -91,5 +123,5 @@
   dock.onclick=()=>{renderCart();dialog.showModal();};
   const originalLang=setLang;
   setLang=function(l){originalLang(l);refreshDock();};
-  refreshDock();render();
+  applyStatic();refreshDock();render();
 })();
