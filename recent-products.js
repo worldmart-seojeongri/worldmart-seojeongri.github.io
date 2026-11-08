@@ -302,12 +302,12 @@
     }
   },
   {
-    "country": "life",
+    "country": "kh",
     "item": {
-      "name": "바세린 로션 400ml (미얀마 라벨)",
-      "zh": "凡士林润肤露 400ml（缅甸标签）",
-      "vi": "Sữa dưỡng thể Vaseline 400ml (nhãn tiếng Myanmar)",
-      "th": "โลชั่นวาสลีน 400 มล. (ฉลากภาษาพม่า)",
+      "name": "캄보디아 코코넛 크림",
+      "zh": "柬埔寨椰浆",
+      "vi": "Kem dừa Campuchia",
+      "th": "กะทิเข้มข้นกัมพูชา",
       "price": null,
       "img": "img/from-wonpyeong/mm-new-24039.jpg",
       "addedAt": "2026-11-04T16:14:46+09:00"
