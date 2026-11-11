@@ -4,6 +4,186 @@
   {
     "country": "cn",
     "item": {
+      "name": "오향 차예단 550g (고형량 250g)",
+      "zh": "茶叶蛋 五香味 净含量550克（固形物250克）",
+      "vi": "Trứng trà ngũ vị 550g (khối lượng cái 250g)",
+      "th": "ไข่ต้มชา 5 เครื่องเทศ 550 กรัม (เนื้อไข่ 250 กรัม)",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-new-24857.jpg",
+      "addedAt": "2026-11-11T19:07:30+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "향라 차예단 550g (고형량 250g)",
+      "zh": "茶叶蛋 香辣味 净含量550克（固形物250克）",
+      "vi": "Trứng trà cay thơm 550g (khối lượng cái 250g)",
+      "th": "ไข่ต้มชารสเผ็ดหอม 550 กรัม (เนื้อไข่ 250 กรัม)",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-new-24858.jpg",
+      "addedAt": "2026-11-11T19:07:30+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "메이룽 99 미정(조미료) 1kg",
+      "zh": "梅花 99味精 1千克",
+      "vi": "Bột ngọt Mei Long 99% 1kg",
+      "th": "ผงชูรส Mei Long 99% 1 กก.",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-new-24854.jpg",
+      "addedAt": "2026-11-11T19:07:30+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "송화피단 378g",
+      "zh": "松花皮蛋 378克",
+      "vi": "Trứng bắc thảo 378g",
+      "th": "ไข่เยี่ยวม้า 378 กรัม",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-new-24827.jpg",
+      "addedAt": "2026-11-11T17:04:00+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "이홍 설화산사채 360g",
+      "zh": "亿红 雪花山楂丝 360克",
+      "vi": "Mứt sợi táo gai tuyết Yihong 360g",
+      "th": "แถบซานจาเสวี่ยฮวา Yihong 360 กรัม",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-new-24828.jpg",
+      "addedAt": "2026-11-11T17:04:00+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "라오베이징 이팔장 참깨땅콩소스 420g",
+      "zh": "老北京二八酱 芝麻花生酱 420克",
+      "vi": "Sốt mè đậu phộng Erbajiang Bắc Kinh 420g",
+      "th": "ซอสงาถั่วลิสง เอ้อร์ปาเจี้ยง ปักกิ่ง 420 กรัม",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-new-24829.jpg",
+      "addedAt": "2026-11-11T17:04:00+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "류비쥐 순참깨장 420g",
+      "zh": "六必居 纯芝麻酱 420克",
+      "vi": "Sốt mè nguyên chất Liubiju 420g",
+      "th": "ซอสงาบดล้วน Liubiju 420 กรัม",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-new-24830.jpg",
+      "addedAt": "2026-11-11T17:04:00+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "마장웨이 지단과자 300g",
+      "zh": "麻薯包蛋黄糕 300克",
+      "vi": "Bánh mochi nhân lòng đỏ trứng Ma Jiang Wei 300g",
+      "th": "ขนมโมจิไส้ไข่แดง Ma Jiang Wei 300 กรัม",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-new-24826.jpg",
+      "addedAt": "2026-11-11T14:19:00+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "유천 김·육송빵 90g",
+      "zh": "友臣肉松海苔面包 90克",
+      "vi": "Bánh mì chà bông rong biển Youchen 90g",
+      "th": "ขนมปังหมูหย็องสาหร่าย Youchen 90 กรัม",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-24822.jpg",
+      "addedAt": "2026-11-11T14:07:50+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "유천 육송빵 50g",
+      "zh": "友臣肉松面包 50克",
+      "vi": "Bánh mì chà bông Youchen 50g",
+      "th": "ขนมปังหมูหย็อง Youchen 50 กรัม",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-24823.jpg",
+      "addedAt": "2026-11-11T14:07:50+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "미라오터우 짭짤한 치즈맛 쌀과자롤",
+      "zh": "米老头咸香芝士味夹心米果卷",
+      "vi": "Bánh gạo cuộn nhân vị phô mai mặn Milaitou",
+      "th": "ข้าวเกรียบม้วนไส้รสชีสรสเค็ม Milaitou",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-24824.jpg",
+      "addedAt": "2026-11-11T14:07:50+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
+      "name": "미라오터우 버터옥수수맛 쌀과자롤",
+      "zh": "米老头奶油玉米味夹心米果卷",
+      "vi": "Bánh gạo cuộn nhân vị bơ ngô Milaitou",
+      "th": "ข้าวเกรียบม้วนไส้รสเนยข้าวโพด Milaitou",
+      "price": null,
+      "img": "img/from-wonpyeong/cn-24825.jpg",
+      "addedAt": "2026-11-11T14:07:50+09:00"
+    }
+  },
+  {
+    "country": "mm",
+    "item": {
+      "name": "레디 미얀마 생선볶음 커리 통조림",
+      "zh": "READY 缅甸炒鱼咖喱罐头",
+      "vi": "Cà ri cá xào đóng hộp READY kiểu Myanmar",
+      "th": "แกงปลาผัดกระป๋อง READY แบบเมียนมา",
+      "price": null,
+      "img": "img/from-wonpyeong/mm-24817.jpg",
+      "addedAt": "2026-11-11T14:07:50+09:00"
+    }
+  },
+  {
+    "country": "mm",
+    "item": {
+      "name": "아메이 레차 미예익 새우젓 400g",
+      "zh": "Amay Letya 缅甸丹老虾酱 400克",
+      "vi": "Mắm tôm Myeik Amay Letya 400g",
+      "th": "กะปิ Myeik Amay Letya 400 กรัม",
+      "price": null,
+      "img": "img/from-wonpyeong/mm-new-24818.jpg",
+      "addedAt": "2026-11-11T14:12:00+09:00"
+    }
+  },
+  {
+    "country": "mm",
+    "item": {
+      "name": "아메이 레차 미예익 새우젓 200g",
+      "zh": "Amay Letya 缅甸丹老虾酱 200克",
+      "vi": "Mắm tôm Myeik Amay Letya 200g",
+      "th": "กะปิ Myeik Amay Letya 200 กรัม",
+      "price": null,
+      "img": "img/from-wonpyeong/mm-new-24819.jpg",
+      "addedAt": "2026-11-11T14:12:00+09:00"
+    }
+  },
+  {
+    "country": "cn",
+    "item": {
       "name": "치즈스틱 과자",
       "zh": "奶酪棒零食",
       "vi": "Snack que phô mai",
